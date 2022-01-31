@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings Per Category</h2>
+    <div class="row">
+        {% for auction_item in auction_list %}
+                <div class="col-sm-4">
+                    <div class="card text-dark border-primary">
+                        <h5 class="card-header">{{ auction_item.title }}</h5>
+                        <div class="card-body">
+                            <p class="card-subtitle mb-2 text-muted">Category : {{ auction_item.category.category }}</p>
+                            <p class="card-text">Description : {{ auction_item.description }}</p>
+                            <p class="card-text">Price : {{ auction_item.starting_price }}</p>
+                            <div class="card-footer bg-transparent border-success">
+                            <a href="{% url 'bid' pk=auction_item.id %}" class="btn btn-primary col-6">Bid Now!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}

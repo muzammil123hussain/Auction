@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2 style="text-align: center;">Edit Auction</h2>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-4 offset-4">
+            <div class="card text-dark">
+                <form action="{% url 'Edit_auction' pk=pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input autofocus value="{{auction_item.title}}" class="form-control" type="text" name="title" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value="{{auction_item.description}}" type="text" name="Description" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value="{{auction_item.starting_price}}" type="text" name="price" placeholder="Starting Price For BID">
+                    </div>
+                    <div class="form-group">
+                        <select name="cat">
+                        {% for cat in category %}
+                        <option value="{{cat.id}}">{{ cat.category }}</option>
+                        {% endfor %}
+                        </select>
+                        <label class="form-label offset-1">&nbsp;&nbsp;Previous Category : {{ auction_item.category.category }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="active" type="checkbox" value="1" id="Active">
+                        <label class="form-check-label" for="Active">
+                            Active
+                        </label>
+                        <label class="form-label offset-3">Previous Active Stutas : {{ auction_item.active }}</label>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Update Auction">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

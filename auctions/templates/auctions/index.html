@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if message %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endif %}
+    <div class="row">
+        {% for auction_item in auction_list %}
+                <div class="col-sm-4">
+                    <div class="card text-dark border-primary">
+                        <h5 class="card-header">{{ auction_item.title }}</h5>
+                        <div class="card-body">
+                            <p class="card-subtitle mb-2 text-muted">Category : {{ auction_item.category.category }}</p>
+                            <p class="card-text">Description : {{ auction_item.description }}</p>
+                            <p class="card-text">Price : {{ auction_item.starting_price }}</p>
+
+                            <div class="card-footer bg-transparent border-success">
+                                <div class="row">
+                                <a href="{% url 'bid' pk=auction_item.id %}" class="btn btn-info col-4">Bid Now!</a>
+                                <a href="{% url 'Add_watchlist' pk=auction_item.id %}" class="btn btn-success offset-4 col-4">
+                                    Add
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}

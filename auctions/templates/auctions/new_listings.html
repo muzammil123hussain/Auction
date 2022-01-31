@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2 style="text-align: center;">Create New Listings</h2>
+    {% if message %}
+    <div class="alert alert-primary">{{ message }}</div>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-4 offset-4">
+            <div class="card text-dark">
+                <form action="{% url 'new_listings' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input autofocus class="form-control" type="text" name="title" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="Description" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="price" placeholder="Starting Price For BID">
+                    </div>
+                    <div class="form-group">
+                        <select name="cat">
+                        {% for cat in category %}
+                        <option value="{{cat.id}}">{{ cat.category }}</option>
+                        {% endfor %}
+                        </select>
+                    <div class="form-check offset-10">
+                        <input class="form-check-input" name="active" type="checkbox" value="1" id="Active">
+                        <label class="form-check-label" for="Active">
+                            Active
+                        </label>
+                        </div>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Place Auction">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

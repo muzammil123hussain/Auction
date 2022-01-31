@@ -1,0 +1,10 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Your Watch List</h2>
+<div class="row">
+    <form action="{% url 'Add_watchlist' pk=id %}" method="post">
+        <input class="btn btn-primary col-12" type="submit" value="Send">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if message %}
+    <div class="alert alert-primary">{{ message }}</div>
+    {% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-dark border-primary">
+                <h5 class="card-header">{{ auction_list.title }}</h5>
+                <div class="card-body">
+                    <p class="card-subtitle mb-2 text-muted">Category : {{ auction_list.category.category }}</p>
+                    <p class="card-text">Description : {{ auction_list.description }}</p>
+                    <p class="card-text">Price : {{ auction_list.starting_price }}</p>
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'bid' pk=id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input autofocus class="form-control" type="text" name="bid" placeholder="BID Price">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="comment" placeholder="Comments">
+                    </div>
+                    <div class="card-footer bg-transparent border-success">
+                        <input class="btn btn-primary col-12" type="submit" value="Send">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div style="position: absolute; float: right; font-size: 20px;">
+                <h1 class="heading-style">Previous Bids</h1>
+                <ol>
+                <strong>Your Bids:</strong>
+                    {% for bid_item in bids_list %}
+                    {% if request.user.id == bid_item.user.id %}
+                        <li><strong>Price</strong> : {{ bid_item.bid_price }},
+                            <strong>Time</strong>  : {{ bid_item.bid_time}},
+                            <strong>User</strong> : {{ bid_item.user.username }}
+                        </li>
+                    {% endif %}
+                    {% empty %}
+                    <li>Sorry, no Bids in this Auction.</li>
+                    {% endfor %}
+                </ol>
+                <ol>
+                    <strong>Other's Bids:</strong>
+                    {% for bid_item in bids_list %}
+                    {% if request.user.id != bid_item.user.id %}
+                        <li><strong>Price</strong> : {{ bid_item.bid_price }},
+                            <strong>Time</strong>  : {{ bid_item.bid_time}},
+                            <strong>User</strong> : {{ bid_item.user.username }}
+                        </li>
+                    {% endif %}
+                    {% empty %}
+                    <li>Sorry, no Bids in this Auction.</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    {% else %}
+    Please Login For BID
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

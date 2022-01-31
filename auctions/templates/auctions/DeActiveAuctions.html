@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>De-Activeted Listing of Your Auctions</h2>
+    <div class="row">
+        {% for De_Active_item in De_Active_list %}
+                <div class="col-sm-4">
+                    <div class="card text-dark border-primary">
+                        <h5 class="card-header">{{ De_Active_item.title }}</h5>
+                        <div class="card-body">
+                            <p class="card-subtitle mb-2 text-muted">Category : {{ De_Active_item.category.category }}</p>
+                            <p class="card-text">Description : {{ De_Active_item.description }}</p>
+                            <p class="card-text">Price : {{ De_Active_item.starting_price }}</p>
+                            <div class="card-footer bg-transparent border-success">
+                            <a href="{% url 'Edit_auction' pk=De_Active_item.id%}" class="btn btn-primary col-12">Edit Your Auction</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}

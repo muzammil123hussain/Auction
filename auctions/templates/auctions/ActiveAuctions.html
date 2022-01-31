@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listing of Your Auctions</h2>
+    <div class="row">
+        {% for Active_item in Active_list %}
+                <div class="col-sm-4">
+                    <div class="card text-dark border-primary">
+                        <h5 class="card-header">{{ Active_item.title }}</h5>
+                        <div class="card-body">
+                            <p class="card-subtitle mb-2 text-muted">Category : {{ Active_item.category.category }}</p>
+                            <p class="card-text">Description : {{ Active_item.description }}</p>
+                            <p class="card-text">Price : {{ Active_item.starting_price }}</p>
+                            <div class="card-footer bg-transparent border-success">
+                            <a href="{% url 'Edit_auction' pk=Active_item.id %}" class="btn btn-primary col-12">Edit Your Auction</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}

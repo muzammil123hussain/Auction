@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Your Watch List</h2>
+<div class="row">
+    {% for watch_item in watch_list %}
+            <div class="col-sm-4">
+                <div class="card text-dark border-primary">
+                    <h5 class="card-header">{{ watch_item.listings.title }}</h5>
+                    <div class="card-body">
+                        <p class="card-subtitle mb-2 text-muted">Category : {{ watch_item.category.category }}</p>
+                        <p class="card-text">Description : {{ watch_item.description }}</p>
+                        <p class="card-text">Price : {{ watch_item.starting_price }}</p>
+                        <div class="card-footer bg-transparent border-success">
+                        <a href="#" class="btn btn-primary col-12">Edit Your Auction</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+</div>
+{% endblock %}
