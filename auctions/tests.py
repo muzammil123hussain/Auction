@@ -1,3 +1,9 @@
+import unittest
 from django.test import TestCase
 
-# Create your tests here.
+
+class Check(unittest.TestCase):
+    def check_test():
+        x = 12
+        assert(x+x == 24)
+
